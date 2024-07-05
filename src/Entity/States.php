@@ -37,12 +37,12 @@ class States
         return $this;
     }
 
-    public function getCountryId(): ?Countries
+    public function getCountry(): ?Countries
     {
         return $this->country;
     }
 
-    public function setCountryId(?Countries $country): static
+    public function setCountry(?Countries $country): static
     {
         $this->country = $country;
 

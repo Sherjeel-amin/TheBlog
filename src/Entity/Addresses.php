@@ -68,24 +68,24 @@ class Addresses
         return $this;
     }
 
-    public function getCityId(): ?Cities
+    public function getCity(): ?Cities
     {
         return $this->city;
     }
 
-    public function setCityId(?Cities $city): static
+    public function setCity(?Cities $city): static
     {
         $this->city = $city;
 
         return $this;
     }
 
-    public function getStateId(): ?States
+    public function getState(): ?States
     {
         return $this->state;
     }
 
-    public function setStateId(?States $state): static
+    public function setState(?States $state): static
     {
         $this->state = $state;
 
@@ -104,12 +104,12 @@ class Addresses
         return $this;
     }
 
-    public function getCountryId(): ?Countries
+    public function getCountry(): ?Countries
     {
         return $this->country;
     }
 
-    public function setCountryId(?Countries $country): static
+    public function setCountry(?Countries $country): static
     {
         $this->country = $country;
 

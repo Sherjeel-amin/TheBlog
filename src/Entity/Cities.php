@@ -37,12 +37,12 @@ class Cities
         return $this;
     }
 
-    public function getStateId(): ?States
+    public function getState(): ?States
     {
         return $this->state;
     }
 
-    public function setStateId(?States $state): static
+    public function setState(?States $state): static
     {
         $this->state = $state;
 
