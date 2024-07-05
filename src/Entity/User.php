@@ -5,8 +5,11 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[UniqueEntity(fields: ['email'], message: 'This email is already registered.')]
 class User
 {
     #[ORM\Id]
@@ -17,22 +20,26 @@ class User
     #[ORM\Column(length: 50)]
     private ?string $username = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 100, unique: true)]
+    #[Assert\NotBlank]
+    #[Assert\Email]
     private ?string $email = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $bio = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 6)]
     private ?string $password = null;
 
     #[ORM\Column(length: 10)]
     private ?string $gender = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $created_at = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updated_at = null;
 
     public function getId(): ?int
@@ -69,7 +76,7 @@ class User
         return $this->bio;
     }
 
-    public function setBio(string $bio): static
+    public function setBio(?string $bio): static
     {
         $this->bio = $bio;
 
@@ -105,7 +112,7 @@ class User
         return $this->created_at;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): static
+    public function setCreatedAt(?\DateTimeInterface $created_at): static
     {
         $this->created_at = $created_at;
 
@@ -117,7 +124,7 @@ class User
         return $this->updated_at;
     }
 
-    public function setUpdatedAt(\DateTimeInterface $updated_at): static
+    public function setUpdatedAt(?\DateTimeInterface $updated_at): static
     {
         $this->updated_at = $updated_at;
 
