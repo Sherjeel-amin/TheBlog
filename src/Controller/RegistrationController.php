@@ -1,4 +1,5 @@
 <?php
+// src/Controller/RegistrationController.php
 
 namespace App\Controller;
 
@@ -8,22 +9,16 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\RegistrationFormType;
 use App\Entity\User;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class RegistrationController extends AbstractController
 {
-
-    public function index(Request $request): Response
+    
+    public function index(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
-        // Get the EntityManager using getDoctrine()
         $entityManager = $this->getDoctrine()->getManager();
-
-        // Create a new User instance
         $user = new User();
-
-        // Create the registration form
         $form = $this->createForm(RegistrationFormType::class, $user);
-
-        // Handle the form submission
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -31,9 +26,12 @@ class RegistrationController extends AbstractController
             $existingUser = $entityManager->getRepository(User::class)->findOneBy(['email' => $user->getEmail()]);
 
             if ($existingUser) {
-                // If user exists, show an error message
                 $this->addFlash('error', 'This email is already registered.');
             } else {
+                // Hash the password
+                $hashedPassword = $passwordEncoder->encodePassword($user, $user->getPassword());
+                $user->setPassword($hashedPassword);
+
                 // Set timestamps for user creation and update
                 $user->setCreatedAt(new \DateTime());
                 $user->setUpdatedAt(new \DateTime());
@@ -42,15 +40,13 @@ class RegistrationController extends AbstractController
                 $entityManager->persist($user);
                 $entityManager->flush();
 
-                // Show a success message
                 $this->addFlash('success', 'User registered successfully!');
 
                 // Redirect to login page or any other route
-                // return $this->redirectToRoute('app_login'); 
+                return $this->redirectToRoute('app_login');
             }
         }
 
-        // Render the registration form template with the form view
         return $this->render('registration/index.html.twig', [
             'form' => $form->createView(),
         ]);
