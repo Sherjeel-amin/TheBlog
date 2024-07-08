@@ -13,7 +13,14 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class RegistrationController extends AbstractController
 {
-    
+/**
+     * Handles user registration.
+     *
+     * @param Request $request
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @return Response
+     */
+
     public function index(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
