@@ -5,3 +5,7 @@
 app_hello:
     path: /hello
     controller: App\Controller\HelloController::index
+
+app_registration:
+    path: /register
+    controller: App\Controller\RegistrationController::index
