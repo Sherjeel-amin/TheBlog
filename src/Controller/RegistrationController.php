@@ -18,9 +18,9 @@ class RegistrationController extends AbstractController
      *
      * @param Request $request
      * @param UserPasswordEncoderInterface $passwordEncoder
+     * 
      * @return Response
      */
-
     public function index(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
