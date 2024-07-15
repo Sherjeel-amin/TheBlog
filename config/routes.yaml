@@ -3,9 +3,21 @@
 #    controller: App\Controller\DefaultController::index
 
 app_hello:
-    path: /hello
+    path: /
     controller: App\Controller\HelloController::index
 
 app_registration:
     path: /register
     controller: App\Controller\RegistrationController::index
+
+app_login:
+    path: /login
+    controller: App\Controller\AuthController::login
+
+app_index:
+    path: /index
+    controller: App\Controller\IndexController::index
+
+app_logout:
+    path: /logout
+    controller: App\Controller\AuthController\logout
