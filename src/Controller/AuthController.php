@@ -8,6 +8,13 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class AuthController extends AbstractController
 {
+    /**
+     * Handles the login action.
+     *
+     * @param AuthenticationUtils $authenticationUtils
+     * 
+     * @return Response
+     */
 
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
