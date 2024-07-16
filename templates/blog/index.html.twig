@@ -4,10 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Create New Blog</title>
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/blog.css') }}">
 </head>
 <body>
     <header>
+     <a class="navbar-brand" href="{{ path('app_index') }}">
+                    <img src="{{ asset('images/logo.png') }}" alt="TheBlog Logo">
+                    TheBlog
+                </a>
         <h1>Create New Blog</h1>
     </header>
     <main>
