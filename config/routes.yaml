@@ -21,3 +21,7 @@ app_index:
 app_logout:
     path: /logout
     controller: App\Controller\AuthController\logout
+
+blog_new:
+    path: /blog/new
+    controller: App\Controller\BlogController::new

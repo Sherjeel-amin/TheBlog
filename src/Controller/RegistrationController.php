@@ -38,17 +38,9 @@ class RegistrationController extends AbstractController
                 // Hash the password
                 $hashedPassword = $passwordEncoder->encodePassword($user, $user->getPassword());
                 $user->setPassword($hashedPassword);
-
-                // Set timestamps for user creation and update
-                $user->setCreatedAt(new \DateTime());
-                $user->setUpdatedAt(new \DateTime());
-
                 // Persist the user entity
                 $entityManager->persist($user);
                 $entityManager->flush();
-
-                // $this->addFlash('success', 'User registered successfully!');
-
                 // Redirect to login page or any other route
                 return $this->redirectToRoute('app_login');
             }
