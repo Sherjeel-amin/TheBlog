@@ -7,9 +7,6 @@ namespace DoctrineMigrations;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
-/**
- * Auto-generated Migration: Please modify to your needs!
- */
 final class Version20240704044149 extends AbstractMigration
 {
     public function getDescription(): string
@@ -19,7 +16,6 @@ final class Version20240704044149 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE TABLE addresses (id INT AUTO_INCREMENT NOT NULL, user_id_id INT NOT NULL, city_id_id INT NOT NULL, state_id_id INT NOT NULL, country_id_id INT NOT NULL, street VARCHAR(255) NOT NULL, pincode INT NOT NULL, created_at DATETIME NOT NULL, INDEX IDX_6FCA75169D86650F (user_id_id), INDEX IDX_6FCA75163CCE3900 (city_id_id), INDEX IDX_6FCA7516DD71A5B (state_id_id), INDEX IDX_6FCA7516D8A48BBD (country_id_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE blogs (id INT AUTO_INCREMENT NOT NULL, user_id_id INT NOT NULL, title VARCHAR(100) NOT NULL, body LONGTEXT NOT NULL, created_at DATETIME NOT NULL, INDEX IDX_F41BCA709D86650F (user_id_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE cities (id INT AUTO_INCREMENT NOT NULL, state_id_id INT NOT NULL, name VARCHAR(100) NOT NULL, INDEX IDX_D95DB16BDD71A5B (state_id_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
@@ -41,7 +37,6 @@ final class Version20240704044149 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
-        // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE TABLE posts (id INT AUTO_INCREMENT NOT NULL, title VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB COMMENT = \'\' ');
         $this->addSql('ALTER TABLE addresses DROP FOREIGN KEY FK_6FCA75169D86650F');
         $this->addSql('ALTER TABLE addresses DROP FOREIGN KEY FK_6FCA75163CCE3900');

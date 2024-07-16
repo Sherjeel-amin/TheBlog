@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+    {% if app.user %}
+        <h1>Welcome, {{ app.user.username }}!</h1>
+    {% else %}
+        <h1>Welcome!</h1>
+    {% endif %}
+
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <a href="{{ path('app_logout') }}" class="btn btn-danger">Logout</a>
+{% endblock %}

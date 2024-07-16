@@ -1,0 +1,29 @@
+security:
+    enable_authenticator_manager: true
+    password_hashers:
+        App\Entity\User:
+            algorithm: argon2id
+    providers:
+        database_users:
+            entity:
+                class: App\Entity\User
+                property: email
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            lazy: true
+            provider: database_users
+            custom_authenticator: App\Security\AuthControllerAuthenticator
+            logout:
+                path: app_logout
+                target: app_login
+
+    access_control:
+        - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/index$, roles: ROLE_USER }
+        - { path: ^/blog/new$, roles: ROLE_USER }
+
