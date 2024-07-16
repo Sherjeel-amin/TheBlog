@@ -1,0 +1,21 @@
+{# templates/blog/new.html.twig #}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Create New Blog</title>
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Create New Blog</h1>
+    </header>
+    <main>
+        {{ form_start(form) }}
+        {{ form_row(form.title) }}
+        {{ form_row(form.body) }}
+        <button type="submit">Save</button>
+        {{ form_end(form) }}
+    </main>
+</body>
+</html>
