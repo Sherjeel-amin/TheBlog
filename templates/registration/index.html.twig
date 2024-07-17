@@ -1,14 +1,17 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Register{% endblock %}
-
-{% block stylesheets %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
     <link rel="stylesheet" href="{{ asset('css/form.css') }}">
-{% endblock %}
-
-{% block body %}
+</head>
+<body>
+<header>
+    <h1>Welcome to TheBlog</h1>
+    <p>Please Login or Register to continue</p>
+</header>
 <div class="form-container">
-    <h1>Register User</h1>
 
     <div class="flash-messages">
         {% for label, messages in app.flashes %}
@@ -21,49 +24,57 @@
     </div>
 
     {{ form_start(form) }}
-        <div class="form-group">
-            {{ form_label(form.username) }}
-            {{ form_widget(form.username) }}
-            {% if form_errors(form.username) %}
-                <div class="form-error">{{ form_errors(form.username) }}</div>
-            {% endif %}
-        </div>
-        <div class="form-group">
-            {{ form_label(form.email) }}
-            {{ form_widget(form.email) }}
-            {% if form_errors(form.email) %}
-                <div class="form-error">{{ form_errors(form.email) }}</div>
-            {% endif %}
-        </div>
-        <div class="form-group">
-            {{ form_label(form.password) }}
-            {{ form_widget(form.password) }}
-            {% if form_errors(form.password) %}
-                <div class="form-error">{{ form_errors(form.password) }}</div>
-            {% endif %}
-        </div>
-        <div class="form-group">
-            {{ form_label(form.bio) }}
-            {{ form_widget(form.bio) }}
-            {% if form_errors(form.bio) %}
-                <div class="form-error">{{ form_errors(form.bio) }}</div>
-            {% endif %}
-        </div>
-        <div class="form-group">
-            {{ form_label(form.gender) }}
-            {{ form_widget(form.gender) }}
-            {% if form_errors(form.gender) %}
-                <div class="form-error">{{ form_errors(form.gender) }}</div>
-            {% endif %}
-        </div>
-        <div class="form-group">
-            {{ form_widget(form.Register, {'attr': {'class': 'd-none'}}) }}
-        </div>
+    <h1>Register User</h1>
 
-         <p class="mt-3">
+    <div class="form-group">
+        {{ form_label(form.username) }}
+        {{ form_widget(form.username, {'attr': {'required': false}}) }}
+        {% if form_errors(form.username) %}
+            <div class="form-error">{{ form_errors(form.username) }}</div>
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.email) }}
+        {{ form_widget(form.email, {'attr': {'required': false}}) }}
+        {% if form_errors(form.email) %}
+            <div class="form-error">{{ form_errors(form.email) }}</div>
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.password) }}
+        {{ form_widget(form.password, {'attr': {'required': false}}) }}
+        {% if form_errors(form.password) %}
+            <div class="form-error">{{ form_errors(form.password) }}</div>
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.bio) }}
+        {{ form_widget(form.bio, {'attr': {'required': false}}) }}
+        {% if form_errors(form.bio) %}
+            <div class="form-error">{{ form_errors(form.bio) }}</div>
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.gender) }}
+        {{ form_widget(form.gender, {'attr': {'class': 'select', 'required': false}}) }}
+        {% if form_errors(form.gender) %}
+            <div class="form-error">{{ form_errors(form.gender) }}</div>
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        {{ form_widget(form.Register, {'attr': {'class': 'btn-primary submit-button'}}) }}
+    </div>
+
+    <p class="mt-3">
         Already have an account? <a href="{{ path('app_login') }}">Login here</a>
     </p>
 
     {{ form_end(form) }}
 </div>
-{% endblock %}
+</body>
+</html>

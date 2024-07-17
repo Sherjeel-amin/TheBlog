@@ -1,0 +1,20 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ asset('css/showblog.css') }}">
+</head>
+{% block body %}
+    <header>
+        {% include 'navbar/navbar.html.twig' %}
+    </header>
+    <div class="blog-post">
+        <h1>{{ blog.title }}</h1>
+        <p class="date-time">by {{ blog.user.username }} on {{ blog.createdAt|date('F j, Y') }}</p>
+        <p class="blog-body">{{ blog.body }}</p>
+        <a href="{{ path('blog_list') }}">Back to Blog List</a>
+    </div>
+     <footer>
+        {% include 'footer/footer.html.twig' %}
+    </footer>
+{% endblock %}

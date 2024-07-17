@@ -23,6 +23,10 @@ class RegistrationFormType extends AbstractType
             ->add('username', TextType::class, [
                 'constraints' => [
                     new NotBlank(),
+                    new Length([
+                        'min' => 4,
+                        'minMessage' => 'Your username should be at least {{ limit }} characters',
+                    ]),
                 ],
             ])
             ->add('email', TextType::class, [
@@ -37,7 +41,6 @@ class RegistrationFormType extends AbstractType
                     new Length([
                         'min' => 6,
                         'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // You can add more constraints as needed
                     ]),
                 ],
             ])
@@ -52,6 +55,10 @@ class RegistrationFormType extends AbstractType
             ->add('bio', TextType::class, [
                 'constraints' => [
                     new NotBlank(),
+                    new Length([
+                        'min' => 10,
+                        'minMessage' => 'Your bio should be at least {{ limit }} characters',
+                    ]),
                 ],
             ])
             ->add('Register', SubmitType::class)

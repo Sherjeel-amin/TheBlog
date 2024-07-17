@@ -1,3 +1,4 @@
+{# templates/base.html.twig #}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,30 +9,25 @@
 </head>
 <body>
     <header>
-        <nav class="navbar">
-            <div class="container">
-                <a class="navbar-brand" href="{{ path('app_index') }}">
-                    {# <img src="{{ asset('images/logo.png') }}" alt="TheBlog Logo"> #}
-                    TheBlog
-                </a>
-                <ul class="nav-links">
-                    <li><a href="{{ path('blog_new') }}">Create New Post</a></li>
-                    {% if app.user %}
-                        <li><a href="{{ path('app_logout') }}">Logout</a></li>
-                    {% else %}
-                        <li><a href="{{ path('app_login') }}">Login</a></li>
-                    {% endif %}
-                </ul>
-            </div>
-        </nav>
+        {% include 'navbar/navbar.html.twig' %}
     </header>
     
     <main class="container">
-        {% block body %}{% endblock %}
-    </main>
+        {% block body %}
+         <section class="hero">
+        <div class="hero-content">
+            <h1>Welcome to TheBlog</h1>
+            <h3>Explore, Create, and Share your stories with the world!</h3>
+            <h3>Discover the art of storytelling like never before.</h3>
+            <a href="{{ path('blog_new') }}" class="btn">Write New Blog</a>
+            <a href="{{ path('blog_list') }}" class="btn">View Blogs</a>
 
-    <footer>
-        <p>&copy; {{ 'now'|date('Y') }} TheBlog. All rights reserved.</p>
+        </div>
+    </section>
+        {% endblock %}
+    </main>
+     <footer>
+        {% include 'footer/footer.html.twig' %}
     </footer>
 </body>
 </html>

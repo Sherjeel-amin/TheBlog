@@ -1,0 +1,81 @@
+/* public/css/navbar.css */
+*{
+    margin: 0;
+    padding: 0;
+}
+.navbar {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+}
+
+.container {
+    display: flex;
+    margin-left: 15px;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+}
+
+.navbar-brand{
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+.navbar-left {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-title {
+    font-size: 2.0rem;
+    text-decoration: none;
+    color: #fff;
+    transition: color 0.3s ease; 
+}
+
+.navbar-title:hover {
+    color: rgb(35, 170, 188); 
+}
+
+.nav-links {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.nav-links li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease; 
+}
+
+.nav-links li a:hover {
+    text-decoration: none; 
+    color: rgb(32, 145, 159); 
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+    margin-left: auto; 
+}
+
+.username {
+    margin-right: 10px;
+}
+
+.logout-link {
+    color: #f00; 
+}
+
+.logout {
+    display: flex;
+    float: right;
+}

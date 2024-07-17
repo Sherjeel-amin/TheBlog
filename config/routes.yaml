@@ -4,7 +4,7 @@
 
 app_hello:
     path: /
-    controller: App\Controller\HelloController::index
+    controller: App\Controller\AuthController::login
 
 app_registration:
     path: /register
@@ -25,3 +25,15 @@ app_logout:
 blog_new:
     path: /blog/new
     controller: App\Controller\BlogController::new
+
+blog_list:
+    path: /blogs
+    controller: App\Controller\BlogController::list
+
+my_blog_list:
+    path: /myblogs
+    controller: App\Controller\BlogController::myBlogs
+
+blog_show:
+    path: /blogs/{id}
+    controller: App\Controller\BlogController::show
