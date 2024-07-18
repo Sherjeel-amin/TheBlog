@@ -68,3 +68,13 @@ main {
 .blog-post a:hover {
     background-color: #030303;
 }
+
+.btn{
+    display: inline-block;
+    background-color: #041ac0;
+    color: rgb(245, 245, 245);
+    padding: 10px 10px;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}

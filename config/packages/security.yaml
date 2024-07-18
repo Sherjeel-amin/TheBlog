@@ -26,4 +26,6 @@ security:
         - { path: ^/$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/index$, roles: ROLE_USER }
         - { path: ^/blog/new$, roles: ROLE_USER }
+        - { path: ^/blog/edit, roles: ROLE_USER }
+        - { path: ^/blog/delete, roles: ROLE_USER }
 

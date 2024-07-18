@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Blog Posts</title>
+    <title>All Blog Posts</title>
     <link rel="stylesheet" href="{{ asset('css/blogview.css') }}">
 </head>
 <body class="blog-view-body">
@@ -13,7 +13,7 @@
 
     <main class="container">
         <div class="blog-list">
-            <h1>My Blog Posts</h1>
+            <h1>All Blog Posts</h1>
             {% for blog in blogs %}
                 <div class="blog-post">
                     <h2>{{ blog.title }}</h2>

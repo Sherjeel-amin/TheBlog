@@ -37,3 +37,12 @@ my_blog_list:
 blog_show:
     path: /blogs/{id}
     controller: App\Controller\BlogController::show
+
+blog_edit:
+    path: /blog/edit/{id}
+    controller: App\Controller\HandleBlogController::edit
+
+blog_delete:
+    path: /blog/delete/{id}
+    controller: App\Controller\HandleBlogController::delete
+    methods: [POST]
