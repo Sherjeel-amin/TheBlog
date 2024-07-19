@@ -1,0 +1,35 @@
+<!-- templates/partials/navbar.html.twig -->
+<head>
+    <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+</head>
+<nav class="navbar">
+    <div class="container">
+    <a href="{{ path('app_index') }}" class="navbar-brand">
+                {# <img src="https://theblog.com/wp-content/uploads/2023/06/TheBlog_Logo.svg" alt="TheBlog Logo" class="navbar-logo"> #}
+            </a>
+            <div class="navbar-title">
+                <a href="{{ path('app_index') }}" class="navbar-brand">
+                    TheBlog
+                </a>
+        <div class="navbar-left">
+            
+            </div>
+            <ul class="nav-links">
+                <li><a href="{{ path('app_index') }}">Home</a></li>
+                <li><a href="{{ path('blog_new') }}">Create New Post</a></li>
+                <li><a href="{{ path('my_blog_list', { userId: app.user.id }) }}">My Blogs</a></li>
+
+            </ul>
+        </div>
+        <div class="navbar-right">
+            <ul class="nav-links">
+                {% if app.user %}
+                    <li>Hi, {{ app.user.username }}</li>
+                    <li><a href="{{ path('app_logout') }}">Logout</a></li>
+                {% else %}
+                    <li><a href="{{ path('app_login') }}">Login</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

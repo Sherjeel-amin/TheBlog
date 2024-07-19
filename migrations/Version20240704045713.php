@@ -7,9 +7,6 @@ namespace DoctrineMigrations;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
-/**
- * Auto-generated Migration: Please modify to your needs!
- */
 final class Version20240704045713 extends AbstractMigration
 {
     public function getDescription(): string
@@ -19,7 +16,6 @@ final class Version20240704045713 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE blogs DROP FOREIGN KEY FK_F41BCA709D86650F');
         $this->addSql('DROP INDEX IDX_F41BCA709D86650F ON blogs');
         $this->addSql('ALTER TABLE blogs CHANGE user_id_id user_id INT NOT NULL');
@@ -48,7 +44,6 @@ final class Version20240704045713 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
-        // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE states DROP FOREIGN KEY FK_31C2774DF92F3E70');
         $this->addSql('DROP INDEX IDX_31C2774DF92F3E70 ON states');
         $this->addSql('ALTER TABLE states CHANGE country_id country_id_id INT NOT NULL');

@@ -1,7 +1,55 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+# config/routes.yaml
 
-app_hello:
-    path: /hello
-    controller: App\Controller\HelloController::index
+# Home
+app_index:
+    path: /
+    controller: App\Controller\IndexController::index
+    methods: [GET]
+
+# Authentication
+app_registration:
+    path: /users/register
+    controller: App\Controller\RegistrationController::index
+    methods: [GET,POST]
+
+app_login:
+    path: /users/login
+    controller: App\Controller\AuthController::login
+    methods: [GET, POST]
+
+app_logout:
+    path: /users/logout
+    controller: App\Controller\AuthController::logout
+    methods: [POST]
+
+# Blog Posts
+blog_list:
+    path: /blogs/all
+    controller: App\Controller\BlogController::list
+    methods: [GET]
+
+blog_new:
+    path: /blogs/create
+    controller: App\Controller\BlogController::new
+    methods: [GET,POST]
+
+blog_show:
+    path: /blogs/{id}
+    controller: App\Controller\BlogController::show
+    methods: [GET]
+
+blog_edit:
+    path: /blogs/{id}/edit
+    controller: App\Controller\HandleBlogController::edit
+    methods: [GET, POST, PUT, PATCH]
+
+blog_delete:
+    path: /blogs/{id}
+    controller: App\Controller\HandleBlogController::delete
+    methods: [POST, DELETE]
+
+# User-specific Blogs
+my_blog_list:
+    path: /users/{userId}/blogs
+    controller: App\Controller\BlogController::myBlogs
+    methods: [GET]
