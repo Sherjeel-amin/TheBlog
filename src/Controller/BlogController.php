@@ -13,10 +13,16 @@ use Symfony\Component\Security\Core\Security;
 
 class BlogController extends AbstractController
 {
-
-    private $blogRepository;
-
-    public function new(Request $request, Security $security): Response
+    /**
+     * Creates a new blog post.
+     *
+     * @param Request $request
+     * @param Security $security
+     * @param BlogsRepository $blogRepository
+     * 
+     * @return Response
+     */
+    public function new(Request $request, Security $security, BlogsRepository $blogRepository): Response
     {
         $blog = new Blogs();
         $form = $this->createForm(BlogType::class, $blog);
@@ -31,7 +37,7 @@ class BlogController extends AbstractController
             }
             $blog->setUser($user);
 
-            // Get the entity manager
+            // Persist the blog post
             $em = $this->getDoctrine()->getManager();
             $em->persist($blog);
             $em->flush();
@@ -45,17 +51,32 @@ class BlogController extends AbstractController
         ]);
     }
 
-    public function list(): Response
+    /**
+     * Lists all blog posts.
+     *
+     * @param BlogsRepository $blogRepository
+     * 
+     * @return Response
+     */
+    public function list(BlogsRepository $blogRepository): Response
     {
         // Fetch all blog posts
-        $blogs = $this->getDoctrine()->getRepository(Blogs::class)->findAll();
+        $blogs = $blogRepository->findAll();
 
         return $this->render('blog/list.html.twig', [
             'blogs' => $blogs,
         ]);
     }
 
-    public function myBlogs(Security $security): Response
+    /**
+     * Lists the logged-in user's blog posts.
+     *
+     * @param Security $security
+     * @param BlogsRepository $blogRepository
+     * 
+     * @return Response
+     */
+    public function myBlogs(Security $security, BlogsRepository $blogRepository): Response
     {
         // Fetch blog posts by the logged-in user
         $user = $security->getUser();
@@ -63,23 +84,24 @@ class BlogController extends AbstractController
             throw $this->createAccessDeniedException('You must be logged in to view your blog posts.');
         }
 
-        $blogs = $this->getDoctrine()->getRepository(Blogs::class)->findBy(['user' => $user]);
+        $blogs = $blogRepository->findBy(['user' => $user]);
 
         return $this->render('blog/my_blogs.html.twig', [
             'blogs' => $blogs,
         ]);
     }
 
-   
-
-    public function __construct(BlogsRepository $blogRepository)
+    /**
+     * Shows a single blog post.
+     *
+     * @param int $id
+     * @param BlogsRepository $blogRepository
+     * 
+     * @return Response
+     */
+    public function show(int $id, BlogsRepository $blogRepository): Response
     {
-        $this->blogRepository = $blogRepository;
-    }
-
-    public function show(int $id): Response
-    {
-        $blog = $this->blogRepository->find($id);
+        $blog = $blogRepository->find($id);
 
         if (!$blog) {
             throw $this->createNotFoundException('The blog does not exist');

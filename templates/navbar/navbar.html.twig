@@ -17,7 +17,8 @@
             <ul class="nav-links">
                 <li><a href="{{ path('app_index') }}">Home</a></li>
                 <li><a href="{{ path('blog_new') }}">Create New Post</a></li>
-                <li><a href="{{ path('my_blog_list') }}">My Blogs</a></li>
+                <li><a href="{{ path('my_blog_list', { userId: app.user.id }) }}">My Blogs</a></li>
+
             </ul>
         </div>
         <div class="navbar-right">
