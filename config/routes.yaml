@@ -20,7 +20,7 @@ app_login:
 app_logout:
     path: /users/logout
     controller: App\Controller\AuthController::logout
-    methods: [POST]
+    methods: [GET,POST]
 
 # Blog Posts
 blog_list:
@@ -53,3 +53,8 @@ my_blog_list:
     path: /users/{userId}/blogs
     controller: App\Controller\BlogController::myBlogs
     methods: [GET]
+
+add_comment:
+    path: /blogs/{id}/comment
+    controller: App\Controller\CommentsController::addComment
+    methods: POST

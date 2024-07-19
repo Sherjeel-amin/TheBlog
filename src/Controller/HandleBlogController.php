@@ -72,12 +72,7 @@ class HandleBlogController extends AbstractController
         if (!$blog) {
             throw $this->createNotFoundException('No blog found for id '.$blogId);
         }
-
-        // Check if the current user is the owner of the blog post
-        if ($blog->getUser() !== $this->getUser()) {
-            throw new AccessDeniedException('You are not allowed to delete this blog post.');
-        }
-
+        
         // Check the CSRF token validity
         if ($this->isCsrfTokenValid('delete'.$blog->getId(), $request->request->get('_token'))) {
             // Get the entity manager the "old way"

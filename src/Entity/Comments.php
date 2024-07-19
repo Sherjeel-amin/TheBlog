@@ -33,24 +33,24 @@ class Comments
         return $this->id;
     }
 
-    public function getBlogId(): ?Blogs
+    public function getBlog(): ?Blogs
     {
         return $this->blog;
     }
 
-    public function setBlogId(?Blogs $blog): static
+    public function setBlog(?Blogs $blog): static
     {
         $this->blog = $blog;
 
         return $this;
     }
 
-    public function getUserId(): ?User
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUserId(?User $user_id): static
+    public function setUser(?User $user_id): static
     {
         $this->user = $user_id;
 

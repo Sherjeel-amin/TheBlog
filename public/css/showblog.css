@@ -1,80 +1,151 @@
-/* public/css/blogpost.css */
+/* public/css/blog-show.css */
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #efeaea;
-    color: #f4f4f9; 
-    margin: 0;
-    padding: 0;
-}
-
-header {
-    margin-bottom: 20px;
-}
-
-main {
+/* Blog Post Styling */
+.blog-post {
+    margin: 20px auto;
     max-width: 800px;
-    margin: 30px auto;
     padding: 20px;
-    background-color: #eeeef3; 
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
     border-radius: 8px;
-}
-
-.blog-post{
-    margin: 20px;
+    background-color: #f9f9f9;
 }
 
 .blog-post h1 {
-    font-size: 2.5em;
+    font-size: 2rem;
     margin-bottom: 10px;
-    color: black;
 }
 
-.blog-body{
-    font-size: 1.2em;
+.blog-post .date-time {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.blog-post .blog-body {
+    font-size: 1.1rem;
     line-height: 1.6;
-    margin-bottom: 20px;
-    color: black;
 }
 
-.date-time{
-    font-weight: 400;
-    font-size: small;
-    color: #041ac0;
+/* Blog Actions Styling */
+.blog-actions {
+    margin-top: 20px;
     margin-bottom: 20px;
 }
-.blog-post p a {
-    color: #f4f4f8; 
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.blog-post p a:hover {
-    color: #06070a; 
-    font-weight: 200;
-}
-
-.blog-post a {
+.back-btn,
+.blog-actions .btn {
     display: inline-block;
-    background-color: #041ac0;
-    color: rgb(245, 245, 245);
-    padding: 10px 10px;
-    text-decoration: none;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-align: center;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
     border-radius: 4px;
-    transition: background-color 0.3s ease;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
 }
 
-.blog-post a:hover {
-    background-color: #030303;
+.blog-actions .btn-primary {
+    background-color: #007bff;
 }
 
-.btn{
+.blog-actions .btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.blog-actions .btn-danger {
+    background-color: #dc3545;
+}
+
+.blog-actions .btn-danger:hover {
+    background-color: #c82333;
+}
+
+.blog-actions .btn + .btn {
+    margin-left: 10px;
+}
+
+/* Comments Section Styling */
+.comments {
+    margin-top: 30px;
+}
+
+.comments h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.comment {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.comment p {
+    margin: 0;
+}
+
+.comment p strong {
+    color: #333;
+}
+
+.comment p small {
+    color: #999;
+}
+
+/* Add Comment Section Styling */
+.add-comment {
+    margin-top: 30px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f1f1f1;
+}
+
+.add-comment h3 {
+    margin-bottom: 15px;
+}
+
+.comment-form {
+    margin-top: 10px;
+}
+
+.comment-form .form-group {
+    margin-bottom: 15px;
+}
+
+.comment-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+.comment-form .btn {
     display: inline-block;
-    background-color: #041ac0;
-    color: rgb(245, 245, 245);
-    padding: 10px 10px;
-    text-decoration: none;
+    padding: 8px 16px;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-align: center;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
     border-radius: 4px;
-    transition: background-color 0.3s ease;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.comment-form .btn-primary {
+    background-color: #007bff;
+}
+
+.comment-form .btn-primary:hover {
+    background-color: #0056b3;
+}
+
+p {
+    margin: 0 0 10px;
 }

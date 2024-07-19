@@ -4,12 +4,15 @@ namespace App\Controller;
 
 use App\Entity\Blogs;
 use App\Form\BlogType;
+use App\Form\CommentType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\BlogsRepository;
 use Symfony\Component\Security\Core\Security;
+use App\Repository\CommentsRepository;
+use App\Entity\Comments;
 
 class BlogController extends AbstractController
 {
@@ -99,16 +102,39 @@ class BlogController extends AbstractController
      * 
      * @return Response
      */
-    public function show(int $id, BlogsRepository $blogRepository): Response
-    {
-        $blog = $blogRepository->find($id);
 
-        if (!$blog) {
-            throw $this->createNotFoundException('The blog does not exist');
-        }
-
-        return $this->render('blog/show.html.twig', [
-            'blog' => $blog,
-        ]);
-    }
-}
+     public function show(int $id, Request $request, BlogsRepository $blogRepository, CommentsRepository $commentsRepository): Response
+     {
+         // Fetch the blog entity based on the ID from the route parameter
+         $blog = $blogRepository->find($id);
+     
+         // Check if the blog entity exists
+         if (!$blog) {
+             throw $this->createNotFoundException('No blog post found for id ' . $id);
+         }
+     
+         $comment = new Comments();
+         $comment->setBlog($blog);
+         $comment->setUser($this->getUser());
+         $comment->setCreatedAt(new \DateTime());
+     
+         $form = $this->createForm(CommentType::class, $comment);
+         $form->handleRequest($request);
+     
+         if ($form->isSubmitted() && $form->isValid()) {
+             $entityManager = $this->getDoctrine()->getManager();
+             $entityManager->persist($comment);
+             $entityManager->flush();
+     
+             return $this->redirectToRoute('blog_show', ['id' => $blog->getId()]);
+         }
+     
+         $comments = $commentsRepository->findBy(['blog' => $blog]);
+     
+         return $this->render('blog/show.html.twig', [
+             'blog' => $blog,
+             'commentForm' => $form->createView(),
+             'comments' => $comments,
+         ]);
+     }
+    }     
