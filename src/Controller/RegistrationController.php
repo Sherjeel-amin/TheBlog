@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class RegistrationController extends AbstractController
 {
-/**
+    /**
      * Handles user registration.
      *
      * @param Request $request
@@ -21,8 +21,14 @@ class RegistrationController extends AbstractController
      * 
      * @return Response
      */
+    #[Route('/register', name: 'app_registration')]
     public function index(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
+        // If user is already logged in, redirect to the target path
+        if ($this->getUser()) {
+            return $this->redirectToRoute('app_index');
+        }
+
         $entityManager = $this->getDoctrine()->getManager();
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
