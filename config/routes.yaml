@@ -41,16 +41,16 @@ blog_show:
 blog_edit:
     path: /blogs/{id}/edit
     controller: App\Controller\HandleBlogController::edit
-    methods: [GET, POST, PUT, PATCH]
+    methods: [GET, POST]
 
 blog_delete:
     path: /blogs/{id}
     controller: App\Controller\HandleBlogController::delete
-    methods: [POST, DELETE]
+    methods: [POST]
 
 # User-specific Blogs
 my_blog_list:
-    path: /users/{userId}/blogs
+    path: /users/blogs
     controller: App\Controller\BlogController::myBlogs
     methods: [GET]
 
