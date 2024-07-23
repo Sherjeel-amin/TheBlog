@@ -9,7 +9,7 @@
         <h1>{{ blog.title }}</h1>
         <p class="date-time">by {{ blog.user.username }} on {{ blog.createdAt|date('F j, Y') }}</p>
         <p class="blog-body">{{ blog.body }}</p>
-
+        
         {% if blog.user == app.user %}
             <div class="blog-actions">
                 <a href="{{ path('blog_edit', {'id': blog.id}) }}" class="btn btn-primary">Edit</a>

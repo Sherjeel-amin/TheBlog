@@ -17,7 +17,8 @@
             {% for blog in blogs %}
                 <div class="blog-post">
                     <h2>{{ blog.title }}</h2>
-                    <p>by {{ blog.user.username }}</p>
+                    <h5>Author : {{ blog.user.username }}</h5>
+                    <h5 class="created-date">{{ blog.createdAt|date('F j, Y') }}</h5>
                     <p>{{ blog.body | slice(0, 150) }}{% if blog.body | length > 150 %}...{% endif %}</p>
                     <a href="{{ path('blog_show', {id: blog.id}) }}">Read More</a>
                 </div>
