@@ -14,7 +14,7 @@ body {
     position: relative;
 }
 
-h3{
+h3 {
     margin: 10px;
     font-weight: 500;
 }
@@ -27,8 +27,9 @@ h3{
 }
 
 .hero-content {
-    padding: 20px;
+    padding: 40px;
     background-color: rgba(0, 0, 0, 0.6); 
+    border-radius: 20px;
 }
 
 .hero h1 {
@@ -37,7 +38,7 @@ h3{
 }
 
 .hero p {
-    font-size: 1 rem;
+    font-size: 1rem; 
     line-height: 1.6;
     margin-bottom: 10px;
 }
@@ -57,3 +58,43 @@ h3{
     background-color: #0056b3;
 }
 
+/* Responsive Design for Mobile Devices */
+@media (max-width: 768px) {
+    .hero {
+        top: 100px;
+        left: -6px;
+        text-align: center;
+    }
+
+    .hero-content {
+        font-size: small;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 0 auto;
+    }
+
+    .hero h1 {
+        font-size: 1.2rem;
+    }
+
+    .hero p {
+        font-size: 0.7rem;
+    }
+
+    .btn {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 1.5rem;
+    }
+
+    .hero p {
+        font-size: 0.8rem;
+    }
+}

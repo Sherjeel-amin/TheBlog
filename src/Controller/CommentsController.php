@@ -4,9 +4,9 @@
 namespace App\Controller;
 
 use App\Entity\Comments;
+use App\Entity\Blogs;
 use App\Form\CommentType;
-use App\Repository\CommentsRepository;
-use App\Repository\BlogsRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,42 +17,49 @@ class CommentsController extends AbstractController
     /**
      * Function to add a comment to the post
      * 
-     * @param id
-     * @param request
-     * @param CommentsRepository
-     * @param BlogsRepository
+     * @param int $id
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
      * 
-     * @return Reponse 
-     * */    
-    public function addComment(Request $request, int $id, CommentsRepository $commentsRepository, BlogsRepository $blogsRepository): Response
+     * @return Response 
+     */    
+    public function addComment(Request $request, int $id, EntityManagerInterface $entityManager): Response
     {
-        $blog = $blogsRepository->find($id);
+        // Fetch the blog by ID using the EntityManager
+        $blog = $entityManager->getRepository(Blogs::class)->find($id);
 
+        // Check if the blog entity exists
         if (!$blog) {
             throw $this->createNotFoundException('Blog post not found');
         }
 
+        // Get the currently logged-in user
         $user = $this->getUser();
         if (!$user) {
             return $this->redirectToRoute('app_login');
         }
 
+        // Create a new comment and set its properties
         $comment = new Comments();
         $comment->setBlog($blog);
         $comment->setUser($user);
         $comment->setCreatedAt(new \DateTime());
 
+        // Create and handle the form
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
+        // Check if the form is submitted and valid
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
+            // Persist the comment using the EntityManager
             $entityManager->persist($comment);
             $entityManager->flush();
 
+            // Redirect to the blog post page after successful submission
             return $this->redirectToRoute('blog_show', ['id' => $id]);
         }
 
+        // Redirect to the blog post page in case of form submission failure
         return $this->redirectToRoute('blog_show', ['id' => $id]);
     }
 }

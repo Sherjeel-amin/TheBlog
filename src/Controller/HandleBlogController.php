@@ -4,9 +4,8 @@
 namespace App\Controller;
 
 use App\Entity\Blogs;
+use App\Entity\Comments;
 use App\Form\BlogEditFormType;
-use App\Repository\BlogsRepository;
-use App\Repository\CommentsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,21 +14,19 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class HandleBlogController extends AbstractController
 {
-    // Other methods...
-
     /**
      * Edit an existing blog post.
      *
      * @param Request $request
-     * @param BlogsRepository $blogRepository
+     * @param EntityManagerInterface $entityManager
      * @param int $id
      * 
      * @return Response
      */
-    public function edit(Request $request, BlogsRepository $blogRepository, int $id): Response
+    public function edit(Request $request, EntityManagerInterface $entityManager, int $id): Response
     {
-        // Fetch the blog by ID using the repository
-        $blog = $blogRepository->find($id);
+        // Fetch the blog by ID using the EntityManager
+        $blog = $entityManager->getRepository(Blogs::class)->find($id);
 
         // Check if blog exists and throw an exception if not found
         if (!$blog) {
@@ -45,7 +42,6 @@ class HandleBlogController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->flush();
 
             return $this->redirectToRoute('blog_show', ['id' => $blog->getId()]);
@@ -61,16 +57,15 @@ class HandleBlogController extends AbstractController
      * Delete an existing blog post.
      *
      * @param Request $request
-     * @param CommentsRepository $commentsRepository
      * @param EntityManagerInterface $entityManager
      * 
      * @return Response
      */
-    public function delete(Request $request, CommentsRepository $commentsRepository, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, EntityManagerInterface $entityManager): Response
     {
         // Get the blog ID from the route parameter
         $blogId = $request->attributes->get('id');
-        // Fetch the blog by ID using the repository
+        // Fetch the blog by ID using the EntityManager
         $blog = $entityManager->getRepository(Blogs::class)->find($blogId);
 
         // Check if blog exists and throw an exception if not found
@@ -81,7 +76,7 @@ class HandleBlogController extends AbstractController
         // Check the CSRF token validity
         if ($this->isCsrfTokenValid('delete'.$blog->getId(), $request->request->get('_token'))) {
             // Fetch and delete all comments associated with the blog
-            $comments = $commentsRepository->findBy(['blog' => $blog]);
+            $comments = $entityManager->getRepository(Comments::class)->findBy(['blog' => $blog]);
             foreach ($comments as $comment) {
                 $entityManager->remove($comment);
             }

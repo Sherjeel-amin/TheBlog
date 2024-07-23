@@ -14,21 +14,26 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('username', TextType::class, [
-                'constraints' => [
-                    new NotBlank(),
-                    new Length([
-                        'min' => 4,
-                        'minMessage' => 'Your username should be at least {{ limit }} characters',
-                    ]),
-                ],
-            ])
+        ->add('username', TextType::class, [
+            'constraints' => [
+                new NotBlank(),
+                new Length([
+                    'min' => 4,
+                    'minMessage' => 'Your username should be at least {{ limit }} characters',
+                ]),
+                new Regex([
+                    'pattern' => '/^[a-zA-Z]+$/',
+                    'message' => 'Your username should only contain letters and no numbers',
+                ]),
+            ],
+        ])
             ->add('email', TextType::class, [
                 'constraints' => [
                     new NotBlank(),

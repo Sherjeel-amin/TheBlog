@@ -2,17 +2,16 @@
 // src/Controller/BlogController.php
 namespace App\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Blogs;
+use App\Entity\Comments;
 use App\Form\BlogType;
 use App\Form\CommentType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use App\Repository\BlogsRepository;
-use Symfony\Component\Security\Core\Security;
-use App\Repository\CommentsRepository;
-use App\Entity\Comments;
 
 class BlogController extends AbstractController
 {
@@ -21,29 +20,29 @@ class BlogController extends AbstractController
      *
      * @param Request $request
      * @param Security $security
-     * @param BlogsRepository $blogRepository
+     * @param EntityManagerInterface $entityManager
      * 
      * @return Response
      */
-    public function new(Request $request, Security $security, BlogsRepository $blogRepository): Response
+    public function new(Request $request, Security $security, EntityManagerInterface $entityManager): Response
     {
         $blog = new Blogs();
         $form = $this->createForm(BlogType::class, $blog);
 
         $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Set the user to the currently logged-in user
-            $user = $security->getUser();
+        $user = $security->getUser();
             if (!$user) {
                 throw $this->createAccessDeniedException('You must be logged in to create a blog post.');
             }
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Set the user to the currently logged-in user
+            
             $blog->setUser($user);
 
             // Persist the blog post
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($blog);
-            $em->flush();
+            $entityManager->persist($blog);
+            $entityManager->flush();
 
             // Redirect to the list of blogs after successful submission
             return $this->redirectToRoute('blog_list');
@@ -57,14 +56,14 @@ class BlogController extends AbstractController
     /**
      * Lists all blog posts.
      *
-     * @param BlogsRepository $blogRepository
+     * @param EntityManagerInterface $entityManager
      * 
      * @return Response
      */
-    public function list(BlogsRepository $blogRepository): Response
+    public function list(EntityManagerInterface $entityManager): Response
     {
         // Fetch all blog posts
-        $blogs = $blogRepository->findAll();
+        $blogs = $entityManager->getRepository(Blogs::class)->findAll();
 
         return $this->render('blog/list.html.twig', [
             'blogs' => $blogs,
@@ -75,11 +74,11 @@ class BlogController extends AbstractController
      * Lists the logged-in user's blog posts.
      *
      * @param Security $security
-     * @param BlogsRepository $blogRepository
+     * @param EntityManagerInterface $entityManager
      * 
      * @return Response
      */
-    public function myBlogs(Security $security, BlogsRepository $blogRepository): Response
+    public function myBlogs(Security $security, EntityManagerInterface $entityManager): Response
     {
         // Fetch blog posts by the logged-in user
         $user = $security->getUser();
@@ -87,7 +86,7 @@ class BlogController extends AbstractController
             throw $this->createAccessDeniedException('You must be logged in to view your blog posts.');
         }
 
-        $blogs = $blogRepository->findBy(['user' => $user]);
+        $blogs = $entityManager->getRepository(Blogs::class)->findBy(['user' => $user]);
 
         return $this->render('blog/my_blogs.html.twig', [
             'blogs' => $blogs,
@@ -98,43 +97,43 @@ class BlogController extends AbstractController
      * Shows a single blog post.
      *
      * @param int $id
-     * @param BlogsRepository $blogRepository
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
      * 
      * @return Response
      */
-
-     public function show(int $id, Request $request, BlogsRepository $blogRepository, CommentsRepository $commentsRepository): Response
-     {
-         // Fetch the blog entity based on the ID from the route parameter
-         $blog = $blogRepository->find($id);
-     
-         // Check if the blog entity exists
-         if (!$blog) {
-             throw $this->createNotFoundException('No blog post found for id ' . $id);
-         }
-     
-         $comment = new Comments();
-         $comment->setBlog($blog);
-         $comment->setUser($this->getUser());
-         $comment->setCreatedAt(new \DateTime());
-     
-         $form = $this->createForm(CommentType::class, $comment);
-         $form->handleRequest($request);
-     
-         if ($form->isSubmitted() && $form->isValid()) {
-             $entityManager = $this->getDoctrine()->getManager();
-             $entityManager->persist($comment);
-             $entityManager->flush();
-     
-             return $this->redirectToRoute('blog_show', ['id' => $blog->getId()]);
-         }
-     
-         $comments = $commentsRepository->findBy(['blog' => $blog]);
-     
-         return $this->render('blog/show.html.twig', [
-             'blog' => $blog,
-             'commentForm' => $form->createView(),
-             'comments' => $comments,
-         ]);
-     }
-    }     
+    public function show(int $id, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        // Fetch the blog entity based on the ID from the route parameter
+        $blog = $entityManager->getRepository(Blogs::class)->find($id);
+    
+        // Check if the blog entity exists
+        if (!$blog) {
+            throw $this->createNotFoundException('No blog post found for id ' . $id);
+        }
+    
+        $comment = new Comments();
+        $comment->setBlog($blog);
+        $comment->setUser($this->getUser());
+        $comment->setCreatedAt(new \DateTime());
+    
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($comment);
+            $entityManager->flush();
+    
+            return $this->redirectToRoute('blog_show', ['id' => $blog->getId()]);
+        }
+    
+        // Fetch comments using EntityManager
+        $comments = $entityManager->getRepository(Comments::class)->findBy(['blog' => $blog]);
+    
+        return $this->render('blog/show.html.twig', [
+            'blog' => $blog,
+            'commentForm' => $form->createView(),
+            'comments' => $comments,
+        ]);
+    }
+}

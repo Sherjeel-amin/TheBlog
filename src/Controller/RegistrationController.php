@@ -21,7 +21,6 @@ class RegistrationController extends AbstractController
      * 
      * @return Response
      */
-    #[Route('/register', name: 'app_registration')]
     public function index(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         // If user is already logged in, redirect to the target path
