@@ -1,0 +1,37 @@
+{# templates/base.html.twig #}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Welcome to TheBlog{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('css/homepage.css') }}">
+</head>
+<body>
+    <header>
+        {% include 'navbar/navbar.html.twig' %}
+    </header>
+    
+    <main class="container">
+        {% block body %}
+         <section class="hero">
+            <div class="hero-content">
+                <h1>Welcome to TheBlog</h1>
+                <h3>Explore, Create, and Share your stories with the world!</h3>
+                <h3>Discover the art of storytelling like never before.</h3>
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <a href="{{ path('blog_new') }}" class="btn">Write Blog</a>
+                {% else %}
+                    <a href="{{ path('app_registration') }}" class="btn">Register Now!</a>
+                {% endif %}
+                <a href="{{ path('blog_list') }}" class="btn">View Blogs</a>
+            </div>
+        </section>
+        {% endblock %}
+    </main>
+    
+    <footer>
+        {% include 'footer/footer.html.twig' %}
+    </footer>
+</body>
+</html>

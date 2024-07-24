@@ -7,9 +7,6 @@ namespace DoctrineMigrations;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
-/**
- * Auto-generated Migration: Please modify to your needs!
- */
 final class Version20240704045326 extends AbstractMigration
 {
     public function getDescription(): string
@@ -19,7 +16,6 @@ final class Version20240704045326 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE addresses DROP FOREIGN KEY FK_6FCA75163CCE3900');
         $this->addSql('ALTER TABLE addresses DROP FOREIGN KEY FK_6FCA75169D86650F');
         $this->addSql('ALTER TABLE addresses DROP FOREIGN KEY FK_6FCA7516D8A48BBD');
@@ -41,7 +37,6 @@ final class Version20240704045326 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
-        // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE addresses DROP FOREIGN KEY FK_6FCA7516A76ED395');
         $this->addSql('ALTER TABLE addresses DROP FOREIGN KEY FK_6FCA75168BAC62AF');
         $this->addSql('ALTER TABLE addresses DROP FOREIGN KEY FK_6FCA75165D83CC1');

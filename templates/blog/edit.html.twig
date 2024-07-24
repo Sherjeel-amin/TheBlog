@@ -1,0 +1,29 @@
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="{{ asset('css/editform.css') }}">
+{% endblock %}
+
+{% block body %}
+    <header>
+        {% include 'navbar/navbar.html.twig' %}
+    </header>
+    <main>
+        <h1>Edit Blog</h1>
+        <form class="post-form" action="{{ path('blog_edit', {'id': blog.id}) }}" method="post">
+            {{ form_start(form) }}
+            <div class="form-group">
+                <label for="title">Title</label>
+                {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                <label for="body">Body</label>
+                {{ form_widget(form.body, {'attr': {'class': 'form-control post-body'}}) }}
+            </div>
+            {{ form_end(form) }}
+        </form>
+            <button class="btn btn-danger btn-del" onclick="history.back()">Back</button>
+    </main>
+    <footer class="page-footer">
+        {% include 'footer/footer.html.twig' %}
+    </footer>
+{% endblock %}

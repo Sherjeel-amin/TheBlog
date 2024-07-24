@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Blog Posts</title>
+    <link rel="stylesheet" href="{{ asset('css/blogview.css') }}">
+</head>
+<body class="blog-view-body">
+
+    <header>
+        {% include 'navbar/navbar.html.twig' %}
+    </header>
+
+    <main class="container">
+        <div class="blog-list">
+            <h1>My Blog Posts</h1>
+            {% for blog in blogs %}
+                <div class="blog-post">
+                    <h2>{{ blog.title }}</h2>
+                    <h5>Author : {{ blog.user.username }}</h5>
+                    <h5 class="created-date">{{ blog.createdAt|date('F j, Y') }}</h5>
+                    <p>{{ blog.body | slice(0, 150) }}{% if blog.body | length > 150 %}...{% endif %}</p>
+                    <a href="{{ path('blog_show', {id: blog.id}) }}">Read More</a>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+    <footer>
+        {% include 'footer/footer.html.twig' %}
+    </footer>
+</body>
+</html>

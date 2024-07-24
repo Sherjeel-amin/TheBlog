@@ -1,10 +1,10 @@
 <?php
-
 namespace App\Entity;
 
 use App\Repository\BlogsRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\User;
 
 #[ORM\Entity(repositoryClass: BlogsRepository::class)]
 class Blogs
@@ -22,10 +22,15 @@ class Blogs
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?user $user = null;
+    private ?User $user = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $created_at = null;
+
+    public function __construct()
+    {
+        $this->created_at = new \DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -40,7 +45,6 @@ class Blogs
     public function setTitle(string $title): static
     {
         $this->title = $title;
-
         return $this;
     }
 
@@ -52,19 +56,17 @@ class Blogs
     public function setBody(string $body): static
     {
         $this->body = $body;
-
         return $this;
     }
 
-    public function getUserId(): ?user
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUserId(?user $user): static
+    public function setUser(?User $user): static
     {
         $this->user = $user;
-
         return $this;
     }
 
@@ -76,7 +78,6 @@ class Blogs
     public function setCreatedAt(\DateTimeInterface $created_at): static
     {
         $this->created_at = $created_at;
-
         return $this;
     }
 }

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Create New Blog</title>
+    <link rel="stylesheet" href="{{ asset('css/blog.css') }}">
+</head>
+<body>
+    <header>
+        {% include 'navbar/navbar.html.twig' %}
+    </header>
+    <main>
+        <form class="post-form" action="{{ path('blog_new') }}" method="post">
+            {{ form_start(form) }}
+            <div class="form-group">
+                <label for="title">Title</label>
+                {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                <label for="body">Body</label>
+                {{ form_widget(form.body, {'attr': {'class': 'form-control post-body'}}) }}
+            </div>
+            <button type="submit" class="btn btn-primary">Publish</button>
+            {{ form_end(form) }}
+        </form>
+    </main>
+    <footer class="page-footer">
+        {% include 'footer/footer.html.twig' %}
+    </footer>
+</body>
+</html>
