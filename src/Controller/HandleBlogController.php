@@ -3,14 +3,14 @@
 
 namespace App\Controller;
 
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Blogs;
 use App\Entity\Comments;
 use App\Form\BlogEditFormType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Doctrine\ORM\EntityManagerInterface;
 
 class HandleBlogController extends AbstractController
 {
