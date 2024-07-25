@@ -28,4 +28,3 @@ security:
         - { path: ^/blog/new$, roles: ROLE_USER }
         - { path: ^/blog/edit, roles: ROLE_USER }
         - { path: ^/blog/delete, roles: ROLE_USER }
-

@@ -24,13 +24,13 @@ class AuthController extends AbstractController
 
         // If user is already logged in, redirect to the target path
         if ($this->getUser()) {
-            $this->addFlash('success', 'Login successful!');
             return $this->redirectToRoute('app_index');
         }
 
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
+    // Symfony’s security system handles the logout functionality based on the configuration in security.yaml. This method’s existence is just a placeholder.
     public function logout(): void
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
