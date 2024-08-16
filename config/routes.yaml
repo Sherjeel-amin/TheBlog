@@ -9,8 +9,13 @@ app_index:
 # Authentication
 app_registration:
     path: /users/register
-    controller: App\Controller\RegistrationController::index
+    controller: App\Controller\UserController::registerPage
     methods: [GET,POST]
+
+api_register:
+    path: /api/register
+    controller: App\Controller\RegisterController::register
+    methods: [POST]
 
 app_login:
     path: /users/login
