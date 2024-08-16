@@ -42,12 +42,14 @@
 
       <!-- Submit Button -->
       <button type="submit">Register</button>
+      <p>Already have an account? <a href="/users/login">Login here</a></p>
     </form>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import '../styles/RegisterForm.css';
 
 export default {
   data() {
@@ -77,18 +79,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.registration-form {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-}
-
-.error {
-  color: red;
-  margin-top: 10px;
-}
-</style>

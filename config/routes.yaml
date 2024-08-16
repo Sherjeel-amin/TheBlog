@@ -14,7 +14,7 @@ app_registration:
 
 api_register:
     path: /api/register
-    controller: App\Controller\RegisterController::register
+    controller: App\Controller\RegistrationController::register
     methods: [POST]
 
 app_login:
