@@ -1,26 +1,23 @@
 <template>
   <div class="registration-form">
     <h1>Register</h1>
-    <form @submit.prevent="submitForm">
-      <!-- Username Field -->
+    <form @submit.prevent="submitForm" data-controller="focus validate" data-action="validate#validate" data-validate-target="form">
+
       <div>
         <label for="username">Username:</label>
-        <input v-model="form.username" type="text" id="username" required>
+        <input v-model="form.username" type="text" id="username" required data-focus-target="username">
       </div>
 
-      <!-- Email Field -->
       <div>
         <label for="email">Email:</label>
         <input v-model="form.email" type="email" id="email" required>
       </div>
 
-      <!-- Password Field -->
       <div>
         <label for="password">Password:</label>
         <input v-model="form.password" type="password" id="password" required>
       </div>
 
-      <!-- Gender Field -->
       <div>
         <label for="gender">Gender:</label>
         <select v-model="form.gender" id="gender" required>
@@ -31,18 +28,15 @@
         </select>
       </div>
 
-      <!-- Bio Field -->
       <div>
         <label for="bio">Bio:</label>
         <textarea v-model="form.bio" id="bio" required></textarea>
       </div>
 
-      <!-- Error Message -->
       <div v-if="error" class="error">{{ error }}</div>
 
-      <!-- Submit Button -->
       <button type="submit">Register</button>
-      <p>Already have an account? <a href="/users/login">Login here</a></p>
+      <p> Already have an account? <a href="/users/login">Login here</a></p>
     </form>
   </div>
 </template>
